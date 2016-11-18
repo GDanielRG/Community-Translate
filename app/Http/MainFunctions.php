@@ -88,7 +88,7 @@
 				if($petition->translationRequest->user->canReceiveAnswers())
 				{
 					$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
-					$targetUserId = $petition->translationRequest->user();
+					$targetUserId = $petition->translationRequest->user;
 
 					$targetUserId->messages()->save($message);
 				}
