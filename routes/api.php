@@ -19,3 +19,4 @@ Route::post('/user', function (Request $request) {
 
 Route::post('/receiveimage', 'HomeController@receiveImage');
 Route::post('/receivetext', 'HomeController@receivetext');
+Route::get('/activate', 'HomeController@activateJobs');

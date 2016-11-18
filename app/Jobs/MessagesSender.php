@@ -29,8 +29,8 @@ class MessagesSender implements ShouldQueue
      */
     public function handle()
     {
-        while(true){
-            $messages = Message::where('sent', false)->get();
+
+            $messages = Message::where('sent', false)->where('messageable_type', '<>', 'Feedback')->get();
             foreach ($messages as $message) {
                 \Curl::to('oneforall.herokuapp.com/oneForAll')
                 ->withData( array(  'action' =>  'message',
@@ -47,6 +47,6 @@ class MessagesSender implements ShouldQueue
                 $message->sent= true;
                 $message->save();
             }
-        }
+            dispatch(new MessagesSender());
     }
 }
