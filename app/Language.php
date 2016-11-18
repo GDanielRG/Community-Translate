@@ -8,7 +8,7 @@ class Language extends Model
 {
     // Languge class
 
-	protected $fillable = ['name', 'code'];
+	protected $fillable = ['name', 'code', 'system'];
 
     public function targetTranslationRequest()
     {
