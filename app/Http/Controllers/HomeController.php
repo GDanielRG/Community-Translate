@@ -51,11 +51,11 @@ class HomeController extends Controller
 
     public function receiveImage(Request $request)
     {
-        \Log::info(json_decode($request));
+        \Log::info($request->all());
     }
 
     public function receiveText(Request $request)
     {
-        \Log::info(json_decode($request));
+        \Log::info($request->all());
     }
 }
