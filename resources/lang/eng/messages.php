@@ -22,4 +22,5 @@ return [
     'request_translate_petition' => 'Can you translate ":text" to :lang please?',
     'best_translation' => 'The best translation was ":text"',
     'request_done' => 'Your request can be created. You will begin to receive messages as soon as people reply.',
+    'thanks' => 'Thanks for your feedback!',
 ];

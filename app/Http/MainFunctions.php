@@ -97,6 +97,11 @@
 				$this->user->state_id = $state->id;
 				$this->user->save();
 
+				$message = new Message(['message' => trans('messages.thanks')]);
+
+
+				$this->user->messages()->save($message);
+
 			}
 		}
 
