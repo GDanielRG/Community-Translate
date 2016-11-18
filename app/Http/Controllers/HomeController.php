@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\GlobalFunctions;
+use App\Http\MainFunctions;
 
 class HomeController extends Controller
 {
@@ -13,7 +15,6 @@ class HomeController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
     }
 
     /**
@@ -23,6 +24,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        $mainFunctions = new MainFunctions("slack", "3454456", "alfhh hinojosa");
+        $mainFunctions->register();
+        return 'done';
     }
 }

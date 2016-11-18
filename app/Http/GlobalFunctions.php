@@ -3,6 +3,9 @@
 	namespace App\Http;
 
 	use App\Message;
+	use App\State;
+	use App\User;
+	use App\Key;
 
 	/**
 	* 
@@ -35,7 +38,7 @@
 					$key = $this->user->keys()->where('name', $this->service)->first();
 
 					if(!$key) {
-						$this->user->keys()->save(new Key::create([	'name' => $this->service, 
+						$this->user->keys()->save(new Key([	'name' => $this->service, 
 																	'key' => $this->sericeId]));
 					} else {
 						$key->key = $this->serviceId;
@@ -48,7 +51,7 @@
 					// Create error message, wrong password
 
 					$message = new Message(['message' => trans('messages.wrong_password')]);
-					$this->user->messages->save($message);
+					$this->user->messages()->save($message);
 
 				}
 
@@ -64,8 +67,8 @@
 												'state_id' => $state->id]);
 
 				// Register the new user key
-				$this->user->keys()->save(new Key::create([	'name' => $this->service, 
-															'key' => $this->sericeId]));
+				$this->user->keys()->save(new Key([	'name' => $this->service, 
+															'key' => $this->serviceId]));
 
 			}
 
@@ -75,32 +78,32 @@
 
 
 			$message = new Message(['message' => trans('messages.new_user_registered')]);
-			$this->user->messages->save($message);
+			$this->user->messages()->save($message);
 		}
 
-		public function askHelp(){
+		// public function askHelp(){
 
-			if($this->user){
+		// 	if($this->user){
 
-				$actualState = $this->user->state_id;
-				$messageId = "";
+		// 		$actualState = $this->user->state;
+		// 		$messageId = "";
 
-				switch ($actualState) {
-					
-					default:
-						$messageId = "messages.no_help_available";
-						break;
-				}
+		// 		switch ($actualState) {
 
-				$message = new Message(['message' => trans($messageId)]);
-				$this->user->messages->save($message);
+		// 			default:
+		// 				$messageId = "messages.no_help_available";
+		// 				break;
+		// 		}
 
-			} else {
+		// 		$message = new Message(['message' => trans($messageId)]);
+		// 		$this->user->messages()->save($message);
 
-				// User needs to register
-				$message = new Message(['message' => trans('messages.user_not_registered')]);
-				$this->user->messages->save($message);
-			}
+		// 	} else {
 
-		}
+		// 		// User needs to register
+		// 		$message = new Message(['message' => trans('messages.user_not_registered')]);
+		// 		$this->user->messages->save($message);
+		// 	}
+
+		// }
 	}

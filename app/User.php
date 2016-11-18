@@ -55,7 +55,7 @@ class User extends Authenticatable
 
     public function knows($language)
     {
-        return Language::where('name', $language)->orWhere('code', $language)->first()
+        return Language::where('name', $language)->orWhere('code', $language)->first();
     }
 
     public function messages()
