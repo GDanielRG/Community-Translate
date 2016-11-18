@@ -8,6 +8,8 @@ use App\Http\MainFunctions;
 use App\Message;
 use App\User;
 use App\Key;
+use App\Jobs\FeedbackSender;
+use App\Jobs\MessagesSender;
 
 class HomeController extends Controller
 {
@@ -87,5 +89,12 @@ class HomeController extends Controller
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
             $mainFunctions->register();
         }
+    }
+
+    public function activateJobs()
+    {
+        dispatch(new FeedbackSender());
+        dispatch(new MessagesSender());
+        return 'listo';
     }
 }
