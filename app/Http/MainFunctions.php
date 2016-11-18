@@ -59,7 +59,7 @@
 			}
 		}
 
-		public function recievePetition($idPetition)
+		public function recievedPetition($idPetition)
 		{
 			\Log::info('etro');
 			$this->goPetitionTranslation();

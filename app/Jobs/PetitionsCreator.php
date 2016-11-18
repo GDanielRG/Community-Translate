@@ -78,7 +78,7 @@ class PetitionsCreator implements ShouldQueue
                                                                         ]);
 
                                 $mainFunctions = new MainFunctions($petition->user->keys()->first()->name,$petition->user->keys()->first()->key, null);
-                                $mainFunctions->receivedPetition($petition->id);
+                                $mainFunctions->recievedPetition($petition->id);
 
                         }
                     }
