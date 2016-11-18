@@ -79,6 +79,9 @@ class HomeController extends Controller
         $text =$request->get('message')["data"]["text"];
         $id = $request->get('message')["data"]["id"]);
         $service = $request->get('message')["service"]);
+        \Log::info($text);
+        \Log::info($id);
+        \Log::info($service);
         if(substr($text, 0, strlen('#register')) === "#register" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
