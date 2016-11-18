@@ -73,6 +73,30 @@
 			$translationPetition->save();
 		}
 
+		public function sendReply()
+		{
+			if($this->user && $this->user->canAnswer()){
+
+				$text = $this->payload;
+
+				$petition = $this->user->translationPetitions()->where('closed', false)->first();
+				$petition->translationAnswers()->save(new TranslationAnswer(["translation" => $text]));
+				$petition->closed = true;
+				$petition->save();
+
+				if($petition->translationRequest->user->canReceiveAnswers())
+				{
+					$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
+					$targetUserId = $petition->translationRequest()->user();
+
+					$targetUserId->messages()->save($message);
+				}
+
+				$this->close();
+
+			}
+		}
+
 
 		// Go to state 4
 		public function goRate()
