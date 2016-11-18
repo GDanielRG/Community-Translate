@@ -42,7 +42,7 @@ class PetitionsCreator implements ShouldQueue
 
         $requests = TranslationRequest::where('closed', false)->get();
         foreach ($requests as $request) {
-            if($request->last_petition->diffInMinutes(Carbon::now()) > 3)
+            if(1)
             {
                 $petitionedUsers = $request->users->pluck('id');
                 $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
