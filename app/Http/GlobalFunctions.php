@@ -15,10 +15,9 @@
 	{
 
 		/**
+		*	Command;
 		*	#register {id} {password}
 		*/
-
-
 		public function register()
 		{
 
@@ -89,11 +88,29 @@
 			}
 		}
 
-
+		/**
+		*	Command;
+		*	#mute
+		*/
 		public function muteMessages(){
 			if($this->user){
-				$this-user->mute = true;
+				$this->user->mute = true;
 				$this->user->save();
+			} else {
+				$this->userNotFound();
+			}
+		}
+
+		/**
+		*	Command;
+		*	#unmute
+		*/
+		public function unmuteMessages(){
+			if($this->user){
+				$this->user->mute = false;
+				$this->user->save();
+			} else {
+				$this->userNotFound();
 			}
 		}
 

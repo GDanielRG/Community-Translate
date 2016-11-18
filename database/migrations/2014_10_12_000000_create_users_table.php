@@ -21,7 +21,7 @@ class CreateUsersTable extends Migration
             $table->integer('score')->default(0);
             $table->string('lastActivePlatform');
             $table->boolean('mute')->default(false);
-            $table->integer('language_id')->unsigned();
+            $table->integer('language_id')->unsigned()->nullable();
             $table->timestamps();
 
             $table->foreign('state_id')->references('id')->on('states');

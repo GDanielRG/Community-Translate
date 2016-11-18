@@ -24,12 +24,21 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $mainFunctions = new MainFunctions("facebook", "44", "alfhh hinojosa");
-        $mainFunctions->register();
-        $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
-        $mainFunctions->register();
-        $mainFunctions = new MainFunctions("facebook", "44", "Spanishs");
-        $mainFunctions->addLanguage();
+        // Test register
+        // $mainFunctions = new MainFunctions("facebook", "44", "alfhh hinojosa");
+        // $mainFunctions->register();
+        // $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
+        // $mainFunctions->register();
+        // $mainFunctions = new MainFunctions("facebook", "44", "Spanish");
+        // $mainFunctions->addLanguage();
+
+        // Test mute
+        // $mainFunctions = new MainFunctions("facebook", "44", "");
+        // $mainFunctions->muteMessages();
+
+        $mainFunctions = new MainFunctions("facebook", "44", "");
+        $mainFunctions->unmuteMessages();
+
         return 'done';
     }
 }
