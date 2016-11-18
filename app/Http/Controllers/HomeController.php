@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
+use App\Http\RequestedTranslationsFunctions;
 use App\Message;
 use App\User;
 use App\Key;
+use App\TranslationPetition;
 use App\Jobs\FeedbackSender;
 use App\Jobs\MessagesSender;
 
@@ -29,26 +31,10 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $user =  User::find(1);
-
-        // Register the new user key
-        $user->keys()->save(new Key([	'name' => 'slack',
-                                                    'key' => 'D34AY5DT6']));
-
-        $message = new Message(['message' => trans('messages.new_user_registered')]);
-        $user->messages()->save($message);
-        $message = new Message(['message' => '1']);
-        $user->messages()->save($message);
-        $message = new Message(['message' => '2']);
-        $user->messages()->save($message);
-        $message = new Message(['message' => '3']);
-        $user->messages()->save($message);
-
-        $messages = Message::where('sent', false)->get();
 
         // Test register
-        // $mainFunctions = new MainFunctions("facebook", "44", "alfhh hinojosa");
-        // $mainFunctions->register();
+        //$mainFunctions = new MainFunctions("facebook", "54", "daniel kako");
+        //$mainFunctions->register();
         // $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
         // $mainFunctions->register();
         // $mainFunctions = new MainFunctions("facebook", "44", "Spanish");
@@ -67,6 +53,15 @@ class HomeController extends Controller
 
         // $mainFunctions = new MainFunctions("facebook", "44", "");
         // $mainFunctions->askHelp();
+
+        //$mainFunctions = new MainFunctions("slack", "45", "Japanese this is the jap file");
+        //$mainFunctions->createRequest();
+
+        TranslationPetition::create([
+                'user_id' => 2,
+                'language_id' => 51,
+                'translation_request_id' => 3
+            ]);
 
         return 'done';
     }

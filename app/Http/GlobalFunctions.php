@@ -36,7 +36,6 @@
 
 				if(\Hash::check($password, $this->user->password)){
 
-					\Log::info("Checked hash");
 
 					// Update the last active platform
 					$this->user->lastActivePlatform = $this->service;
@@ -133,15 +132,27 @@
 				$stateName = $actualState->name;
 				$messageId = "";
 
-				\Log::info("Actual state");
-				\Log::info($actualState);
-				\Log::info("State name");
-				\Log::info($stateName);
-
 				switch ($stateName) {
 					case 'main':
 						$messageId = "messages.main_help_text";
 						break;
+
+					case 'requestedTranslation':
+						$messageId = "messages.requested_help_text";
+						break;
+
+					case 'receivedPetition':
+						$messageId = "messages.received_help_text";
+						break;
+
+					case 'rating':
+						$messageId = "messages.rating_help_text";
+						break;
+
+					case 'requestFromImage':
+						$messageId = "messages.requested_image_help_text";
+						break;
+
 					default:
 						// Error, send generic message
 						$message = new Message(['message' => trans('messages.no_help_available')]);
@@ -214,6 +225,87 @@
 			}
 			else{
 				$this->userNotFound();
+			}
+		}
+
+
+		public function updateLastPlatform()
+		{
+			if($this->user){
+				// Update the last active platform
+				$this->user->lastActivePlatform = $this->service;
+				$this->user->save();
+			}
+		}
+
+		public function close()
+		{
+			// Check that the users exits
+			if($this->user){
+				$actualState = $this->user->state;
+				$stateName = $actualState->name;
+
+				// Change the state only if the user is on state different than Main
+				if($stateName != 'main'){
+
+					switch ($stateName) {
+						case 'rating':
+							// Do logic
+							break;
+
+						default:
+							break;
+					}
+
+					// Change the state to main
+					$state = State::where('name', 'main')->first();
+					$this->user->state_id = $state->id;
+					$this->user->save();
+				}
+
+			}
+		}
+
+		// Go to state 4
+		public function goRate()
+		{
+			if($this->user){
+				$state = State::where('name', 'rating')->first();
+				$this->user->state_id = $state->id;
+				$this->user->save();
+			}
+		}
+
+		// Go to state 2
+		public function goRequesTranslation()
+		{
+			//MISSING QUERY
+			if($this->user){
+				$state = State::where('name', 'requestedTranslation')->first();
+				$this->user->state_id = $state->id;
+				$this->user->save();
+			}
+		}
+
+		// Go to state 5
+		public function goRequesTranslationImage()
+		{
+			//MISSING QUERY
+			if($this->user){
+				$state = State::where('name', 'requestedFromImage')->first();
+				$this->user->state_id = $state->id;
+				$this->user->save();
+			}
+		}
+
+		// Go to state 3
+		public function goPetitionTranslation()
+		{
+
+			if($this->user){
+				$state = State::where('name', 'receivedPetition')->first();
+				$this->user->state_id = $state->id;
+				$this->user->save();
 			}
 		}
 	}
