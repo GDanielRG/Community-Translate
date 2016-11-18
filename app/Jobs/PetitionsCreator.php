@@ -49,7 +49,7 @@ class PetitionsCreator implements ShouldQueue
                 $potentialUsers = $request->language->users();
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
-                        if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers)
+                        if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers))
                         {
                             if($potentialUser->canReceiveTranslation())
                             {
@@ -70,5 +70,7 @@ class PetitionsCreator implements ShouldQueue
                 }
             }
         }
+        dispatch(new FeedbackSender());
+
     }
 }
