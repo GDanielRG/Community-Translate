@@ -137,6 +137,12 @@ class HomeController extends Controller
              $ratingFunctions->rateAnswer();
         }
 
+        if(substr($text, 0, strlen('#close')) === "#close")
+        {
+            $mainFunctions = new MainFunctions($service, $id, null);
+             $mainFunctions->close();
+        }
+
     }
 
     public function activateJobs()
