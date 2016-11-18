@@ -53,6 +53,8 @@
 						$key->save();
 					}
 
+					$message = new Message(['message' => trans('messages.new_service_added')]);
+					$this->user->messages()->save($message);
 
 				} else {
 
@@ -87,6 +89,7 @@
 
 
 		}
+
 
 		// public function askHelp(){
 
