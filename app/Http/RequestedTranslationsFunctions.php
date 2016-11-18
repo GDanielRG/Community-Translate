@@ -31,8 +31,8 @@
 
 			 	$request = $this->user->translationRequests()->where('closed', false)->first();
 
-			 	\Log::info("Petition");
-			 	\Log::info($petition);
+				// 	\Log::info("Petition");
+				// 	\Log::info($petition);
 
 			 	$answers = $request->translationAnswers;
 				$highestRated = $answers->first();
