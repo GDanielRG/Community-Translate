@@ -7,6 +7,8 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\Message;
+use App\Jobs\MessagesSender;
+use App\Jobs\PetitionsCreator;
 
 
 class FeedbackSender implements ShouldQueue
@@ -49,6 +51,6 @@ class FeedbackSender implements ShouldQueue
                 $message->save();
             }
 
-        dispatch(new FeedbackSender());
+        dispatch(new PetitionsCreator());
     }
 }

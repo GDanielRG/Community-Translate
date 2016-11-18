@@ -13,6 +13,7 @@ use App\Key;
 use App\TranslationPetition;
 use App\Jobs\FeedbackSender;
 use App\Jobs\MessagesSender;
+use App\Jobs\PetitionsCreator;
 
 class HomeController extends Controller
 {
@@ -141,7 +142,6 @@ class HomeController extends Controller
     public function activateJobs()
     {
         dispatch(new FeedbackSender());
-        dispatch(new MessagesSender());
         return 'listo';
     }
 }

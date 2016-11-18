@@ -14,6 +14,9 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
+use App\Jobs\FeedbackSender;
+use App\Jobs\MessagesSender;
+use App\Jobs\PetitionsCreator;
 
 class PetitionsCreator implements ShouldQueue
 {
