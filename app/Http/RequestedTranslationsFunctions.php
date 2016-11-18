@@ -29,12 +29,12 @@
 		{
 			 if($this->user && $this->user->canGetBestAnswer()){
 
-			 	$petition = $this->user->translationPetitions()->where('closed', false)->first();
+			 	$request = $this->user->translationRequests()->where('closed', false)->first();
 
 			 	\Log::info("Petition");
 			 	\Log::info($petition);
 
-			 	$answers = $petition->translationAnswers;
+			 	$answers = $request->translationAnswers;
 				$highestRated = $answers->first();
 				$countHighest = 0;
 				foreach ($answers as $answer) {
