@@ -24,7 +24,9 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $mainFunctions = new MainFunctions("slack", "3454456", "alfhh hinojosa");
+        $mainFunctions = new MainFunctions("facebook", "44", "alfhh hinojosa");
+        $mainFunctions->register();
+        $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
         $mainFunctions->register();
         return 'done';
     }
