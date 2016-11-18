@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateTranslationPetitionsTable extends Migration
+class CreateRatesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,15 +13,15 @@ class CreateTranslationPetitionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('translation_petitions', function (Blueprint $table) {
+        Schema::create('rates', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('translation_answer_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('translation_request_id')->unsigned();
-            $table->boolean('closed');
+            $table->integer('value');
             $table->timestamps();
 
+            $table->foreign('translation_answer_id')->references('id')->on('translation_answers');
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('translation_request_id')->references('id')->on('translation_requests');
         });
     }
 
@@ -32,6 +32,6 @@ class CreateTranslationPetitionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('translation_petitions');
+        Schema::dropIfExists('rates');
     }
 }

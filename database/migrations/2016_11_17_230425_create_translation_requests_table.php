@@ -19,7 +19,8 @@ class CreateTranslationRequestsTable extends Migration
             $table->integer('target_language_id')->unsigned();
             $table->integer('source_language_id')->unsigned();
             $table->string('text');
-            $table->boolean('answered');
+            $table->boolean('closed');
+            $table->dateTime('last_petition');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

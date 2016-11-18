@@ -6,5 +6,17 @@ use Illuminate\Database\Eloquent\Model;
 
 class TranslationAnswer extends Model
 {
-    //
+ 
+  
+	public function translationPetition()
+	{
+		return $this->belongsTo('App\TranslationPetition');
+	}
+
+	public function rates()
+	{
+		return $this->hasMany('App\Rate');
+	}
+
+
 }

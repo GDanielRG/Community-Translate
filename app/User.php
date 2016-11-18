@@ -26,4 +26,19 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function rates()
+    {
+        return $this->hasMany('App\Rate');
+    }
+
+    public function translationPetitions()
+    {
+        return $this->hasMany('App\TranslationPetition');
+    }
+
+    public function translationRequests()
+    {
+        return $this->hasMany('App\TranslationRequest');
+    }
 }

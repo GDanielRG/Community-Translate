@@ -15,11 +15,11 @@ class CreateTranslationAnswersTable extends Migration
     {
         Schema::create('translation_answers', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->integer('translation_petition_id')->unsigned();
             $table->string('translation');
             $table->timestamps();
 
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('translation_petition_id')->references('id')->on('translation_petitions');
         });
     }
 
