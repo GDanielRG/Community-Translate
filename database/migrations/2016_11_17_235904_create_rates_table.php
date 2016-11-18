@@ -17,7 +17,7 @@ class CreateRatesTable extends Migration
             $table->increments('id');
             $table->integer('translation_answer_id')->unsigned();
             $table->integer('user_id')->unsigned();
-            $table->integer('value');
+            $table->integer('value')->nullable();
             $table->timestamps();
 
             $table->foreign('translation_answer_id')->references('id')->on('translation_answers');

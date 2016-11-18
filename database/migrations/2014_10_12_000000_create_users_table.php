@@ -18,6 +18,7 @@ class CreateUsersTable extends Migration
             $table->integer('state_id')->unsigned();
             $table->string('username');
             $table->string('password');
+            $table->integer('score');
             $table->string('lastActivePlatform');
             $table->timestamps();
 
