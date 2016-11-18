@@ -77,4 +77,30 @@
 			$message = new Message(['message' => trans('messages.new_user_registered')]);
 			$this->user->messages->save($message);
 		}
+
+		public function askHelp(){
+
+			if($this->user){
+
+				$actualState = $this->user->state_id;
+				$messageId = "";
+
+				switch ($actualState) {
+					
+					default:
+						$messageId = "messages.no_help_available";
+						break;
+				}
+
+				$message = new Message(['message' => trans($messageId)]);
+				$this->user->messages->save($message);
+
+			} else {
+
+				// User needs to register
+				$message = new Message(['message' => trans('messages.user_not_registered')]);
+				$this->user->messages->save($message);
+			}
+
+		}
 	}

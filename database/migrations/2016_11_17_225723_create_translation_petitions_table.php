@@ -17,14 +17,14 @@ class CreateTranslationPetitionsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('translation_request_id')->unsigned();
-            $table->integer('translation_answer_id')->unsigned()->nullable();
+            $table->integer('language_id')->unsigned();
             $table->boolean('closed')->default(false);
             $table->boolean('sent')->default(false);
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('language_id')->references('id')->on('languages');
             $table->foreign('translation_request_id')->references('id')->on('translation_requests');
-            $table->foreign('translation_answer_id')->references('id')->on('translation_answers');
         });
     }
 

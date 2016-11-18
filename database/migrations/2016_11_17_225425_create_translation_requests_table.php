@@ -16,16 +16,14 @@ class CreateTranslationRequestsTable extends Migration
         Schema::create('translation_requests', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->integer('target_language_id')->unsigned();
-            $table->integer('source_language_id')->unsigned();
+            $table->integer('language_id')->unsigned();
             $table->string('text');
             $table->boolean('closed');
             $table->dateTime('last_petition');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('target_language_id')->references('id')->on('languages');
-            $table->foreign('source_language_id')->references('id')->on('languages');
+            $table->foreign('language_id')->references('id')->on('languages');
         });
     }
 
