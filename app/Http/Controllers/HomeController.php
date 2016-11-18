@@ -77,8 +77,8 @@ class HomeController extends Controller
     public function receiveText(Request $request)
     {
         $text =$request->get('message')["data"]["text"];
-        $id = $request->get('message')["data"]["id"]);
-        $service = $request->get('message')["service"]);
+        $id = $request->get('message')["data"]["id"];
+        $service = $request->get('message')["service"];
         \Log::info($text);
         \Log::info($id);
         \Log::info($service);
