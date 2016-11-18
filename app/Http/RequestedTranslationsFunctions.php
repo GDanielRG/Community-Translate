@@ -6,11 +6,11 @@
 	use App\TranslationRequest;
 
 	/**
-	* 
+	*
 	*/
 	class RequestedTranslationsFunctions extends GlobalFunctions
 	{
-		
+
 		protected $user;
 		protected $payload;
 		protected $service;
@@ -33,7 +33,7 @@
 
 			 	\Log::info("Petition");
 			 	\Log::info($petition);
-				
+
 			 	$answers = $petition->translationAnswers;
 				$highestRated = $answers->first();
 				$countHighest = 0;
@@ -44,18 +44,17 @@
 
 					$count = 0;
 					foreach ($rates as $rate ) {
-						if ( $rate->value == 1 ) {
-							$count++;
-						}
-
+						$count = $count + $rate->value;
 					}
-					if ( $count > $countHighest) {
+					if ( $count >= $countHighest) {
 						$highestRated = $answer;
+						$countHighest = $count;
 					}
 				}
 				$message = new Message(['message' => trans('messages.best_translation', ['text'=>$highestRated->translation])]);
+				$this->user->messages()->save($message);
 			 }
 		}
-		
+
 
 	}

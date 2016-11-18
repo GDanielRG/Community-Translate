@@ -3,14 +3,16 @@
 	namespace App\Http;
 
 	use App\Key;
+	use App\Message;
 	use App\TranslationPetition;
+	use App\TranslationAnswer;
 
 	/**
-	* 
+	*
 	*/
 	class ReceivedPetitionFunctions extends GlobalFunctions
 	{
-		
+
 		protected $user;
 		protected $payload;
 		protected $service;
@@ -25,7 +27,7 @@
 			$this->serviceId = $userId;
 		}
 
-		
+
 		public function sendAnswer()
 		{
 
@@ -38,11 +40,13 @@
 				$petition->closed = true;
 				$petition->save();
 
+				if($petition->translationRequest->user->canReceiveAnswers())
+				{
+					$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
+					$targetUserId = $petition->translationRequest()->user();
 
-				$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
-				$targetUserId = $petition->translationRequest()->user();
-
-				$targetUserId->messages()->save($message);
+					$targetUserId->messages()->save($message);
+				}
 
 				$this->close();
 
