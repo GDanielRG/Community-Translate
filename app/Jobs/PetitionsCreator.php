@@ -10,6 +10,7 @@ use App\User;
 use App\TranslationPetition;
 use App\TranslationRequest;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 
 class PetitionsCreator implements ShouldQueue
 {
@@ -32,16 +33,28 @@ class PetitionsCreator implements ShouldQueue
      */
     public function handle()
     {
-        while (true) {
-            $requests = TranslationRequest::where('closed', false)->get();
-            foreach ($requests as $request) {
-                if($request->last_petition->diffInMinutes(Caron::now()) > 3)
-                {
-                    $petitionedUsers = $request->users->pluck('id');
-                    $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
-                    $canTranslate =
-                    foreach ($languagesNeeded as $languageNeeded) {
-                        # code...
+
+        $requests = TranslationRequest::where('closed', false)->get();
+        foreach ($requests as $request) {
+            if($request->last_petition->diffInMinutes(Caron::now()) > 3)
+            {
+                $petitionedUsers = $request->users->pluck('id');
+                $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
+                $potentialUsers = $request->language->users();
+                foreach ($potentialUsers as $potentialUser) {
+                    foreach ($potentialUser->languages as $language) {
+                        if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers)
+                        {
+                            if($potentialUser->canReceiveTranslation())
+                            {
+                                $petition = TranslationPetition::create([
+                                                                            'user_id' => $potentialUser->id,
+                                                                            'translation_request_id' => $request->id,
+                                                                            'language_id' => $language->id,
+                                                                        ]);    
+                            }
+
+                        }
                     }
                 }
             }

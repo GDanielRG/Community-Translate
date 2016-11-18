@@ -2,6 +2,7 @@
 
 return [
     'wrong_password' => 'Incorrect password',
+    'no_user' => 'Usernnot found.',
     'new_user_registered' => 'New user registered',
     'new_language_added' => 'Language added: :name',
     'language_not_found' => 'Language not found: :name',

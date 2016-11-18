@@ -87,27 +87,27 @@ class HomeController extends Controller
         if(substr($text, 0, strlen('#register')) === "#register" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            $mainFunctions->register();
+            return $mainFunctions->register();
         }
         if(substr($text, 0, strlen('#iknow')) === "#iknow" && $text['6'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 7));
-            $mainFunctions->addLanguage();
+            return $mainFunctions->addLanguage();
         }
         if(substr($text, 0, strlen('#language')) === "#language" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            $mainFunctions->addLanguage();
+            return $mainFunctions->addLanguage();
         }
         if(substr($text, 0, strlen('#mute')) === "#mute" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            $mainFunctions->mute();
+            return $mainFunctions->mute();
         }
         if(substr($text, 0, strlen('#unmute')) === "#unmute" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            $mainFunctions->unmute();
+            return $mainFunctions->unmute();
         }
     }
 

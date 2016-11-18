@@ -86,6 +86,8 @@
 				$this->user->messages()->save($message);
 
 			}
+
+			return true;
 		}
 
 		/**
@@ -99,6 +101,8 @@
 			} else {
 				$this->userNotFound();
 			}
+			return true;
+
 		}
 
 		/**
@@ -112,9 +116,11 @@
 			} else {
 				$this->userNotFound();
 			}
+			return true;
+
 		}
 
-		
+
 		/**
 		* Command:
 		* #help
@@ -151,12 +157,16 @@
 				$this->userNotFound();
 			}
 
+			return true;
+
+
 		}
 
 
 		public function userNotFound()
 		{
-				//SendMessageUsernotFound
+			$message = new Message(['message' => trans('messages.no_user')]);
+			$this->user->messages()->save($message);
 		}
 
 		public function addLanguage()
