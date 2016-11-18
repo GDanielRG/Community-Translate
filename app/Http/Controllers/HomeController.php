@@ -139,7 +139,7 @@ class HomeController extends Controller
 
         if(substr($text, 0, strlen('#close')) === "#close")
         {
-            $mainFunctions = new MainFunctions($service, $id, null);
+            $mainFunctions = new MainFunctions($service, $id, "");
              $mainFunctions->close();
         }
 
