@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
 use App\Http\RequestedTranslationsFunctions;
+use App\Http\ReceivedPetitionFunctions;
 use App\Http\RatingFunctions;
 use App\Message;
 use App\User;
