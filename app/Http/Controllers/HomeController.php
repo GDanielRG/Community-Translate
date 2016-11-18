@@ -117,7 +117,7 @@ class HomeController extends Controller
         if(substr($text, 0, strlen('#reply')) === "#reply" && $text['6'] = " ")
         {
             $receivedFunctions = new ReceivedPetitionFunctions($service, $id, substr($text, 7));
-             $receivedFunctions->sendAnswer();
+             $receivedFunctions->sendAnswerr();
         }
 
         if(substr($text, 0, strlen('#getbest')) === "#getbest" && $text['8'] = " ")
