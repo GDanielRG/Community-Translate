@@ -27,19 +27,34 @@
 
 		public function getBestAnswer()
 		{
-			// if($this->user){
+			 if($this->user){
 
-			// 	$petition = $this->user->translationPetitions()->where('closed', false)->first();
+			 	$petition = $this->user->translationPetitions()->where('closed', false)->first();
 
-			// 	\Log::info("Petition");
-			// 	\Log::info($petition);
+			 	\Log::info("Petition");
+			 	\Log::info($petition);
 				
-			// 	$answers = $petition->translationAnswers();
+			 	$answers = $petition->translationAnswers;
+				$highestRated = $answers->first();
+				$countHighest = 0;
+				foreach ($answers as $answer) {
+					 # code...
 
+					$rates = $answer->rates;
 
-			// 	\Log::info("Answers");
-			// 	\Log::info($answers);
-			// }
+					$count = 0;
+					foreach ($rates as $rate ) {
+						if ( $rate->value == 1 ) {
+							$count++;
+						}
+
+					}
+					if ( $count > $countHighest) {
+						$highestRated = $answer;
+					}
+				}
+				$message = new Message(['message' => trans('messages.best_translation', ['text'=>$highestRated->translation])]);
+			 }
 		}
 		
 
