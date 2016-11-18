@@ -18,3 +18,4 @@ Route::post('/user', function (Request $request) {
 })->middleware('auth:api');
 
 Route::post('/receiveimage', 'HomeController@receiveImage');
+Route::post('/receivetext', 'HomeController@receivetext');

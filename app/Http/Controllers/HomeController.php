@@ -49,7 +49,12 @@ class HomeController extends Controller
         return 'done';
     }
 
-    public function receiveImage($request)
+    public function receiveImage(Request $request)
+    {
+        \Log::info(json_decode($request));
+    }
+
+    public function receiveText(Request $request)
     {
         \Log::info(json_decode($request));
     }
