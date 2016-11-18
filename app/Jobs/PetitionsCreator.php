@@ -7,10 +7,13 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
+use App\State;
 use App\TranslationPetition;
 use App\TranslationRequest;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use App\Http\GlobalFunctions;
+use App\Http\MainFunctions;
 
 class PetitionsCreator implements ShouldQueue
 {
@@ -47,11 +50,16 @@ class PetitionsCreator implements ShouldQueue
                         {
                             if($potentialUser->canReceiveTranslation())
                             {
+                                $state = State::where('name', 'receivedPetition')->first();
+                                $potentialUser->state_id = $tate->id;
+                                $potentialUser->save();
                                 $petition = TranslationPetition::create([
                                                                             'user_id' => $potentialUser->id,
                                                                             'translation_request_id' => $request->id,
                                                                             'language_id' => $language->id,
-                                                                        ]);    
+                                                                        ]);
+                                $mainFunctions = new MainFunctions(null, null, null);
+                                $mainFunctions->receivedPetition($petition->id);
                             }
 
                         }
