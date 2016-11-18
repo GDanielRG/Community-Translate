@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Language;
 
 class User extends Authenticatable
 {
@@ -40,5 +41,30 @@ class User extends Authenticatable
     public function translationRequests()
     {
         return $this->hasMany('App\TranslationRequest');
+    }
+
+    public function state()
+    {
+        return $this->belongsTo('App\State');
+    }
+
+    public function languages()
+	{
+		return $this->belongsToMany('App\Language');
+	}
+
+    public function knows($language)
+    {
+        return Language::where('name', $language)->orWhere('code', $language)->first()
+    }
+
+    public function messages()
+    {
+        return $this->hasMany('App\Message');
+    }
+
+    public function keys()
+    {
+        return $this->hasMany('App\Key');
     }
 }

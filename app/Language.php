@@ -19,4 +19,9 @@ class Language extends Model
     {
     	return $this->hasMany('App\TranslationRequest', 'source_language_id', 'id');
     }
+
+	public function users()
+	{
+		return $this->belongsToMany('App\User');
+	}
 }

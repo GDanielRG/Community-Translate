@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Rate extends Model
 {
-    //
 
     protected $fillable = ['translation_answer_id', 'user_id', 'value'];
 
