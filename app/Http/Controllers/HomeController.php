@@ -28,6 +28,8 @@ class HomeController extends Controller
         $mainFunctions->register();
         $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
         $mainFunctions->register();
+        $mainFunctions = new MainFunctions("facebook", "44", "Spanishs");
+        $mainFunctions->addLanguage();
         return 'done';
     }
 }
