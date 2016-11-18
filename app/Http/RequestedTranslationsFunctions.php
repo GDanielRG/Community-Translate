@@ -27,7 +27,7 @@
 
 		public function getBestAnswer()
 		{
-			 if($this->user && $this->users->canGetBestAnswer()){
+			 if($this->user && $this->user->canGetBestAnswer()){
 
 			 	$petition = $this->user->translationPetitions()->where('closed', false)->first();
 
