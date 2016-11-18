@@ -44,7 +44,14 @@ class PetitionsCreator implements ShouldQueue
         foreach ($requests as $request) {
             if(1)
             {
-                $petitionedUsers = $request->users()->get()->pluck('id');
+                // $petitionedUsers = $request->users()->get()->pluck('id');
+
+                $petitions = TranslationPetition::where('translation_request_id', $request->id)->get();
+                $petitionedUsers=[];
+                foreach ($petitions as $petition) {
+                    $petitionedUsers[]=$petition->user->id;
+                }
+
                 $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
                 $potentialUsers = $request->language->users();
                 foreach ($potentialUsers as $potentialUser) {
