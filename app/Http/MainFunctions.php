@@ -7,6 +7,7 @@
 	use App\Language;
 	use App\TranslationRequest;
 	use App\TranslationPetition;
+	use App\TranslationAnswer;
 	use App\Message;
 
 	/**
