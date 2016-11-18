@@ -69,7 +69,7 @@ class PetitionsCreator implements ShouldQueue
                         if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers))
                         {
                                 $state = State::where('name', 'receivedPetition')->first();
-                                $potentialUser->state_id = $tate->id;
+                                $potentialUser->state_id = $state->id;
                                 $potentialUser->save();
                                 $petition = TranslationPetition::create([
                                                                             'user_id' => $potentialUser->id,
