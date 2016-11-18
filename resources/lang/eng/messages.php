@@ -20,5 +20,6 @@ return [
     'rating_help_text' => '#skip\nSkip this answer\n\n#rate {value}\n\t-value: This value can be up to add one, or down to substract one\n\n',
     'requested_image_help_text' => 'Please send an image file\n\n',
     'request_translate_petition' => 'Can you translate ":text" to :lang please?',
-    'best_translation' => 'The best translation was ":text"'
+    'best_translation' => 'The best translation was ":text"',
+    'request_done' => 'Your request can be created. You will begin to receive messages as soon as people reply.',
 ];

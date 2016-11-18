@@ -249,8 +249,10 @@
 				if($stateName != 'main'){
 
 					switch ($stateName) {
-						case 'rating':
-							// Do logic
+						case 'requestedTranslation':
+							$request = $this->user->translationRequests()->where('close', false)->first();
+							$request->closed = true;
+							$request->save();
 							break;
 
 						default:
