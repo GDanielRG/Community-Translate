@@ -33,7 +33,18 @@ class PetitionsCreator implements ShouldQueue
     public function handle()
     {
         while (true) {
-            $requests = TranslationRequest::where('closed', false)
+            $requests = TranslationRequest::where('closed', false)->get();
+            foreach ($requests as $request) {
+                if($request->last_petition->diffInMinutes(Caron::now()) > 3)
+                {
+                    $petitionedUsers = $request->users->pluck('id');
+                    $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
+                    $canTranslate =
+                    foreach ($languagesNeeded as $languageNeeded) {
+                        # code...
+                    }
+                }
+            }
         }
     }
 }
