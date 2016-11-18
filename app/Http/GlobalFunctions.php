@@ -6,6 +6,7 @@
 	use App\State;
 	use App\User;
 	use App\Key;
+	use App\Language;
 
 	/**
 	*
@@ -119,10 +120,10 @@
 				$this->user->lastActivePlatform = $this->service;
 				$this->user->save();
 
-				$language = Languege::where('name', $this->payload)->orWhere('code', $this->payload);
+				$language = Language::where('name', $this->payload)->orWhere('code', $this->payload)->first();
 				if($language)
 				{
-					$this->user->languages()->save($language);
+					$this->user->languages()->attach($language->id);
 					$message = new Message(['message' => trans('messages.new_language_added', ['name'=>$language->name])]);
 					$this->user->messages()->save($message);
 				}

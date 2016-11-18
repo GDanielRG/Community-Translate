@@ -13,7 +13,7 @@ class CreateLanguageUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('language_users', function (Blueprint $table) {
+        Schema::create('language_user', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('language_id')->unsigned();
