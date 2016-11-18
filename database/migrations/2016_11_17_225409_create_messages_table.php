@@ -18,6 +18,8 @@ class CreateMessagesTable extends Migration
             $table->integer('user_id')->unsigned();
             $table->string('message');
             $table->boolean('sent')->default(false);
+            $table->integer('messageable_id')->unsigned()->nullable();
+            $table->string('messageable_type')->default('Feedback');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');

@@ -18,4 +18,9 @@ class Rate extends Model
     {
     	return $this->belongsTo('App\TranslationAnswer');
     }
+
+    public function messages()
+	{
+		return $this->morphMany('App\Message', 'messageable');
+	}
 }
