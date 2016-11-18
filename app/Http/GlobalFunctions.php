@@ -113,6 +113,12 @@
 
 		// }
 
+
+		public function userNotFound()
+		{
+				//SendMessageUsernotFound
+		}
+
 		public function addLanguage()
 		{
 			if($this->user)
@@ -131,6 +137,33 @@
 					$message = new Message(['message' => trans('messages.language_not_found', ['name'=>$this->payload])]);
 					$this->user->messages()->save($message);
 				}
+			}
+			else{
+				$this->userNotFound();
+			}
+		}
+
+		public function changeLanguage()
+		{
+			if($this->user)
+			{
+				$this->user->lastActivePlatform = $this->service;
+				$this->user->save();
+
+				$language = $this->user->languages()->where('name', $this->payload)->orWhere('code', $this->payload)->first();
+				if($language)
+				{
+					$this->user->language->save($language);
+					$message = new Message(['message' => trans('messages.language_changed', ['name'=>$language->name])]);
+					$this->user->messages()->save($message);
+				}
+				else{
+					$message = new Message(['message' => trans('messages.language_not_present', ['name'=>$this->payload])]);
+					$this->user->messages()->save($message);
+				}
+			}
+			else{
+				$this->userNotFound();
 			}
 		}
 	}
