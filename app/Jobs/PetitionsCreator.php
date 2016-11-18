@@ -61,7 +61,8 @@ class PetitionsCreator implements ShouldQueue
                 $temp = LanguageUser::where('language_id', $request->language_id)->get()->pluck('user_id');
 
                 \Log::info($temp);
-                $potentialUsers = $request->language->users()->get();
+                $potentialUsers = User::whereIn('id', $temp)->get();
+                \Log::info($potentialUsers);
 
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
