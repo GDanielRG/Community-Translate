@@ -89,6 +89,13 @@
 		}
 
 
+		public function muteMessages(){
+			if($this->user){
+				$this-user->mute = true;
+				$this->user->save();
+			}
+		}
+
 		// public function askHelp(){
 
 		// 	if($this->user){

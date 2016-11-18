@@ -20,9 +20,12 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->integer('score')->default(0);
             $table->string('lastActivePlatform');
+            $table->boolean('mute')->default(false);
+            $table->integer('language_id')->unsigned();
             $table->timestamps();
 
             $table->foreign('state_id')->references('id')->on('states');
+            $table->foreign('language_id')->references('id')->on('languages');
         });
     }
 

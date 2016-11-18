@@ -67,4 +67,9 @@ class User extends Authenticatable
     {
         return $this->hasMany('App\Key');
     }
+
+    public function language()
+    {
+        return $this->belongsTo('App\Language');
+    }
 }
