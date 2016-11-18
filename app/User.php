@@ -75,41 +75,41 @@ class User extends Authenticatable
 
     public function canReceivePetition()
     {
-        return ($this->state->name == 'main')
+        return ($this->state->name == 'main');
     }
 
     public function canRate()
     {
-        return ($this->state->name == 'main')
+        return ($this->state->name == 'main');
     }
     public function canRequestTranslation()
     {
-        return ($this->state->name == 'main')
+        return ($this->state->name == 'main');
     }
     public function canReceiveAnswers()
     {
-        return ($this->state->name == 'requestedTranslation')
+        return ($this->state->name == 'requestedTranslation');
     }
     public function canGetBestAnswer()
     {
-        return ($this->state->name == 'requestedTranslation')
+        return ($this->state->name == 'requestedTranslation');
     }
     public function canAnswer()
     {
-        return ($this->state->name == 'receivedPetition')
+        return ($this->state->name == 'receivedPetition');
     }
     public function canReceiveRatings()
     {
-        return ($this->state->name == 'rating')
+        return ($this->state->name == 'rating');
     }
 
     public function canSkip()
     {
-        return ($this->state->name == 'rating')
+        return ($this->state->name == 'rating');
     }
 
     public function canCreateRating()
     {
-        return ($this->state->name == 'rating')
+        return ($this->state->name == 'rating');
     }
 }

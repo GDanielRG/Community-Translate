@@ -239,6 +239,19 @@
 				if($stateName != 'main'){
 
 					switch ($stateName) {
+<<<<<<< HEAD
+=======
+						case 'requestedTranslation':
+							$request = $this->user->translationRequests()->where('closed', false)->first();
+							$request->closed = true;
+							$request->save();
+							break;
+						case 'receivedPetition':
+							$petition = $this->user->translationPetitions()->where('closed', false)->first();
+							$petition->closed = true;
+							$petition->save();
+							break;
+>>>>>>> 606a4dae28a326bb1396066dcd02ca369e8b6b57
 						case 'rating':
 							// Do logic
 							break;

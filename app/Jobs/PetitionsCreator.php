@@ -7,10 +7,16 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
+use App\State;
 use App\TranslationPetition;
 use App\TranslationRequest;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use App\Http\GlobalFunctions;
+use App\Http\MainFunctions;
+use App\Jobs\FeedbackSender;
+use App\Jobs\MessagesSender;
+use App\Jobs\PetitionsCreator;
 
 class PetitionsCreator implements ShouldQueue
 {
@@ -36,22 +42,27 @@ class PetitionsCreator implements ShouldQueue
 
         $requests = TranslationRequest::where('closed', false)->get();
         foreach ($requests as $request) {
-            if($request->last_petition->diffInMinutes(Caron::now()) > 3)
+            if($request->last_petition->diffInMinutes(Carbon::now()) > 3)
             {
                 $petitionedUsers = $request->users->pluck('id');
                 $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->pluck('id');
                 $potentialUsers = $request->language->users();
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
-                        if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers)
+                        if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers))
                         {
                             if($potentialUser->canReceiveTranslation())
                             {
+                                $state = State::where('name', 'receivedPetition')->first();
+                                $potentialUser->state_id = $tate->id;
+                                $potentialUser->save();
                                 $petition = TranslationPetition::create([
                                                                             'user_id' => $potentialUser->id,
                                                                             'translation_request_id' => $request->id,
                                                                             'language_id' => $language->id,
-                                                                        ]);    
+                                                                        ]);
+                                $mainFunctions = new MainFunctions(null, null, null);
+                                $mainFunctions->receivedPetition($petition->id);
                             }
 
                         }
@@ -59,5 +70,7 @@ class PetitionsCreator implements ShouldQueue
                 }
             }
         }
+        dispatch(new FeedbackSender());
+
     }
 }
