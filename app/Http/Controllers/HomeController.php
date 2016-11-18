@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
+use App\Http\RequestedTranslationsFunctions;
 
 class HomeController extends Controller
 {
@@ -43,8 +44,11 @@ class HomeController extends Controller
 
         // echo("<p style='white-space: pre-wrap;'>Comandos disponibles:\n\n#mute\nCambia tu estado actual a silenciado\n\n#unmute\nCambia tu estado actual a no silenciado\n\n#addLanguage {name|code}\nAgrega un nuevo lenguage a tu lista de lenguages conocidos\n\t-name: Nombre del lenguage\n\t-code: ISO: 693-2 codigo del lenguage\n\n#register {username} {password}\nRegistra una nueva aplicacion a tu cuenta\n\t-username: Tu ID\n\t-password: Tu contraseña\n\n#changeLanguage {name|code}\nCambia el lenguaje de la aplicacion\n\t-name: Nombre del lenguage\n\t-code: ISO: 693-2 codigo del lenguage\n</p>");
 
-        $mainFunctions = new MainFunctions("facebook", "44", "");
-        $mainFunctions->askHelp();
+        $mainFunctions = new MainFunctions("slack", "45", "");
+        $mainFunctions->goRequesTranslation();
+
+        $mainFunctions = new RequestedTranslationsFunctions("facebook", "44", "");
+        $mainFunctions->getBestAnswer();
 
         return 'done';
     }
