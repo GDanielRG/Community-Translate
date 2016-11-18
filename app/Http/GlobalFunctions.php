@@ -102,7 +102,7 @@
 		}
 
 		/**
-		*	Command;
+		*	Command:
 		*	#unmute
 		*/
 		public function unmuteMessages(){
@@ -114,31 +114,44 @@
 			}
 		}
 
-		// public function askHelp(){
+		
+		/**
+		* Command:
+		* #help
+		*/
+		public function askHelp(){
 
-		// 	if($this->user){
+			if($this->user){
 
-		// 		$actualState = $this->user->state;
-		// 		$messageId = "";
+				$actualState = $this->user->state;
+				$stateName = $actualState->name;
+				$messageId = "";
 
-		// 		switch ($actualState) {
+				\Log::info("Actual state");
+				\Log::info($actualState);
+				\Log::info("State name");
+				\Log::info($stateName);
 
-		// 			default:
-		// 				$messageId = "messages.no_help_available";
-		// 				break;
-		// 		}
+				switch ($stateName) {
+					case 'main':
+						$messageId = "messages.main_help_text";
+						break;
+					default:
+						// Error, send generic message
+						$message = new Message(['message' => trans('messages.no_help_available')]);
+						$this->user->messages()->save($message);
+						return;
+				}
 
-		// 		$message = new Message(['message' => trans($messageId)]);
-		// 		$this->user->messages()->save($message);
+				$message = new Message(['message' => trans('available_commands').trans($messageId).trans('global_help_text')]);
+				$this->user->messages()->save($message);
 
-		// 	} else {
+			} else {
 
-		// 		// User needs to register
-		// 		$message = new Message(['message' => trans('messages.user_not_registered')]);
-		// 		$this->user->messages->save($message);
-		// 	}
+				$this->userNotFound();
+			}
 
-		// }
+		}
 
 
 		public function userNotFound()

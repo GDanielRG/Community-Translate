@@ -16,7 +16,7 @@ class CreateMessagesTable extends Migration
         Schema::create('messages', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->string('message');
+            $table->longText('message');
             $table->boolean('sent')->default(false);
             $table->integer('messageable_id')->unsigned()->nullable();
             $table->string('messageable_type')->default('Feedback');
