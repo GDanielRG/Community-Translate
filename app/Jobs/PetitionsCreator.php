@@ -52,7 +52,11 @@ class PetitionsCreator implements ShouldQueue
                     $petitionedUsers[]=$petition->user->id;
                 }
 
-                $languagesNeeded = $request->user->languages()->where('id', '<>', $request)->get()->pluck('id');
+                $languagesNeeded2 = $request->user->languages()->where('id', '<>', $request)->get();
+                $languagesNeeded=[];
+                foreach ($languagesNeeded2 as $lan) {
+                    $languagesNeeded[]=$lan->id;
+                }
                 $potentialUsers = $request->language->users();
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
