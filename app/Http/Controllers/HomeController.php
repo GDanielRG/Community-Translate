@@ -29,7 +29,7 @@ class HomeController extends Controller
 
     /**
      * Show the application dashboard.
-     *
+     *:Q
      * @return \Illuminate\Http\Response
      */
     public function index()
