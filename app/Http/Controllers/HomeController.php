@@ -84,57 +84,57 @@ class HomeController extends Controller
         if(substr($text, 0, strlen('#register')) === "#register" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            return $mainFunctions->register();
+             $mainFunctions->register();
         }
         if(substr($text, 0, strlen('#iknow')) === "#iknow" && $text['6'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 7));
-            return $mainFunctions->addLanguage();
+             $mainFunctions->addLanguage();
         }
         if(substr($text, 0, strlen('#language')) === "#language" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            return $mainFunctions->addLanguage();
+             $mainFunctions->addLanguage();
         }
         if(substr($text, 0, strlen('#mute')) === "#mute" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            return $mainFunctions->mute();
+             $mainFunctions->mute();
         }
         if(substr($text, 0, strlen('#unmute')) === "#unmute" && $text['9'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
-            return $mainFunctions->unmute();
+             $mainFunctions->unmute();
         }
 
         if(substr($text, 0, strlen('#request')) === "#request" && $text['8'] = " ")
         {
             $mainFunctions = new MainFunctions($service, $id, substr($text, 9));
-            return $mainFunctions->createRequest();
+             $mainFunctions->createRequest();
         }
 
         if(substr($text, 0, strlen('#reply')) === "#reply" && $text['6'] = " ")
         {
             $receivedFunctions = new ReceivedPetitionFunctions($service, $id, substr($text, 7));
-            return $receivedFunctions->sendAnswer();
+             $receivedFunctions->sendAnswer();
         }
 
         if(substr($text, 0, strlen('#getbest')) === "#getbest" && $text['8'] = " ")
         {
             $requestedFunctions = new RequestedTranslationsFunctions($service, $id, substr($text, 9));
-            return $requestedFunctions->getBestAnswer();
+             $requestedFunctions->getBestAnswer();
         }
 
         if(substr($text, 0, strlen('#skip')) === "#skip" && $text['5'] = " ")
         {
             $ratingFunctions = new RatingFunctions($service, $id, substr($text, 6));
-            return $ratingFunctions->skip();
+             $ratingFunctions->skip();
         }
 
         if(substr($text, 0, strlen('#rate')) === "#rate" && $text['5'] = " ")
         {
             $ratingFunctions = new RatingFunctions($service, $id, substr($text, 6));
-            return $ratingFunctions->rateAnswer();
+             $ratingFunctions->rateAnswer();
         }
 
     }
