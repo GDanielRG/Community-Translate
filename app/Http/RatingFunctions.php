@@ -27,24 +27,32 @@
 			$this->serviceId = $userId;
 		}
 
-		// public function rateAnswer()
-		// {
-		// 	if($this->user){
+		public function rateAnswer()
+		{
+			if($this->user){
 
-		// 		$value = $this->payload;
+				$value = $this->payload;
 
-		// 		switch ($value) {
-		// 			case 'value':
-		// 				# code...
-		// 				break;
+				switch ($value) {
+					case 1:
+					case -1:
+					case 0:
+						# code...
+						$rate = $this->user->rates()->where('value', null)->first();
+						if ($rate) {
+							$rate->value = $value;
+							$rate->save();
+						}
+					break;
 					
-		// 			default:
-		// 				# code...
-		// 				break;
-		// 		}
+					
+					default:
+						# code...
+						break;
+				}
 
-		// 	}
-		// }
+			}
+		}
 
 		public function skip()
 		{
