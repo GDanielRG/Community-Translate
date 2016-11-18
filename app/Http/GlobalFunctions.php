@@ -212,7 +212,7 @@
 				$this->user->save();
 
 				$language = $this->user->languages()->where('name', $this->payload)->orWhere('code', $this->payload)->first();
-				if($language)
+				if($language && $language->system)
 				{
 					$this->user->language->save($language);
 					$message = new Message(['message' => trans('messages.language_changed', ['name'=>$language->name])]);
@@ -254,6 +254,17 @@
 							$request->closed = true;
 							$request->save();
 							break;
+						case 'receivedPetition':
+							$petition = $this->user->translationPetitions()->where('close', false)->first();
+							$petition->closed = true;
+							$petition->save();
+							break;
+						case 'rating':
+							$rating = $this->user->ratings()->where('value', null)->first();
+							$rating->value = 0;
+							$rating->save();
+							break;
+
 
 						default:
 							break;
