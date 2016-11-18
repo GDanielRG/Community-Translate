@@ -85,8 +85,6 @@
 				$this->user->messages()->save($message);
 
 			}
-
-			return true;
 		}
 
 		/**
@@ -100,8 +98,6 @@
 			} else {
 				$this->userNotFound();
 			}
-			return true;
-
 		}
 
 		/**
@@ -115,11 +111,9 @@
 			} else {
 				$this->userNotFound();
 			}
-			return true;
-
 		}
 
-
+		
 		/**
 		* Command:
 		* #help
@@ -151,7 +145,7 @@
 
 					case 'requestFromImage':
 						$messageId = "messages.requested_image_help_text";
-						break;
+						break;			
 
 					default:
 						// Error, send generic message
@@ -168,16 +162,12 @@
 				$this->userNotFound();
 			}
 
-			return true;
-
-
 		}
 
 
 		public function userNotFound()
 		{
-			$message = new Message(['message' => trans('messages.no_user')]);
-			$this->user->messages()->save($message);
+				//SendMessageUsernotFound
 		}
 
 		public function addLanguage()
@@ -212,7 +202,7 @@
 				$this->user->save();
 
 				$language = $this->user->languages()->where('name', $this->payload)->orWhere('code', $this->payload)->first();
-				if($language && $language->system)
+				if($language)
 				{
 					$this->user->language->save($language);
 					$message = new Message(['message' => trans('messages.language_changed', ['name'=>$language->name])]);
@@ -249,6 +239,8 @@
 				if($stateName != 'main'){
 
 					switch ($stateName) {
+<<<<<<< HEAD
+=======
 						case 'requestedTranslation':
 							$request = $this->user->translationRequests()->where('closed', false)->first();
 							$request->closed = true;
@@ -259,13 +251,11 @@
 							$petition->closed = true;
 							$petition->save();
 							break;
+>>>>>>> 606a4dae28a326bb1396066dcd02ca369e8b6b57
 						case 'rating':
-							$rating = $this->user->ratings()->where('value', null)->first();
-							$rating->value = 0;
-							$rating->save();
+							// Do logic
 							break;
-
-
+						
 						default:
 							break;
 					}
@@ -274,51 +264,11 @@
 					$state = State::where('name', 'main')->first();
 					$this->user->state_id = $state->id;
 					$this->user->save();
+
+					$message = new Message(['message' => 'Closed successfully']);
+					$this->user->messages()->save($message);
 				}
 
-			}
-		}
-
-		// Go to state 4
-		public function goRate()
-		{
-			if($this->user){
-				$state = State::where('name', 'rating')->first();
-				$this->user->state_id = $state->id;
-				$this->user->save();
-			}
-		}
-
-		// Go to state 2
-		public function goRequesTranslation()
-		{
-			//MISSING QUERY
-			if($this->user){
-				$state = State::where('name', 'requestedTranslation')->first();
-				$this->user->state_id = $state->id;
-				$this->user->save();
-			}
-		}
-
-		// Go to state 5
-		public function goRequesTranslationImage()
-		{
-			//MISSING QUERY
-			if($this->user){
-				$state = State::where('name', 'requestedFromImage')->first();
-				$this->user->state_id = $state->id;
-				$this->user->save();
-			}
-		}
-
-		// Go to state 3
-		public function goPetitionTranslation()
-		{
-
-			if($this->user){
-				$state = State::where('name', 'receivedPetition')->first();
-				$this->user->state_id = $state->id;
-				$this->user->save();
 			}
 		}
 	}
