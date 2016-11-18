@@ -41,4 +41,9 @@ class HomeController extends Controller
 
         return 'done';
     }
+
+    public function receiveImage($request)
+    {
+        \Log::info(json_decode($request));
+    }
 }
