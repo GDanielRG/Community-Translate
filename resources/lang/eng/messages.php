@@ -9,5 +9,8 @@ return [
     'language_changed' => 'Language changed: :name',
     'user_not_registered' => 'Please register your user',
     'new_service_added' => 'New service added',
-    'no_help_available' => 'No help available'
+    'no_help_available' => 'No help available',
+    'available_commands' => 'Available commands',
+    'global_help_text' => '#mute\nChanges your current state to muted\n\n#unmute\nChanges your current state to unmuted\n\n#addLanguage {name|code}\nAdds a new language to your list of known languages\n\t-name: Name of the language\n\t-code: ISO: 693-2 language code\n\n#register {username} {password}\nRegisters a new app to your account\n\t-username: Your ID\n\t-password: Your password\n\n#changeLanguage {name|code}\nChanges the language of the app\n\t-name: Name of the language\n\t-code: ISO: 693-2 language code\n',
+    'main_help_text' => '#request\n{name|code} {text}\nMake a translation petition\n\t-name: Name of the language\n\t-code: ISO: 693-2 language code\n\t-text: The text that will be translated\n\n#requestImage {name|code}\n\t-name: Name of the language\n\t-code: ISO: 693-2 language code\n\n#rate\nStart rating translations related to languages that you know'
 ];
