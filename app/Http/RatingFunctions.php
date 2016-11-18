@@ -29,7 +29,7 @@
 
 		public function rateAnswer()
 		{
-			if($this->user){
+			if($this->user && $this->user->canCreateRating()){
 
 				$value = $this->payload;
 
@@ -37,7 +37,7 @@
 					case 1:
 					case -1:
 					case 0:
-						# code...
+
 						$rate = $this->user->rates()->where('value', null)->first();
 						if ($rate) {
 							$rate->value = $value;
@@ -45,9 +45,7 @@
 						}
 					break;
 					
-					
 					default:
-						# code...
 						break;
 				}
 
@@ -56,10 +54,13 @@
 
 		public function skip()
 		{
-			$rate = $this->user->rates()->where('value', null)->first();
-			if ($rate) {
-				$rate->value = 0;
-				$rate->save();
+			if($this->user && $this->user->canSkip()){
+
+				$rate = $this->user->rates()->where('value', null)->first();
+				if ($rate) {
+					$rate->value = 0;
+					$rate->save();
+				}
 			}
 		}
 	}

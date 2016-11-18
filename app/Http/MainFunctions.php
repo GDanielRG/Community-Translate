@@ -38,7 +38,7 @@
 				$text = substr($this->payload, strlen($lang[0]) + 1);
 
 
-				$language = Language::where('code', $lang[0])->orWhere('name', $lang[0])first();
+				$language = Language::where('code', $lang[0])->orWhere('name', $lang[0])->first();
 
 				if($language)
 				{
