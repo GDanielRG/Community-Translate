@@ -29,17 +29,25 @@
 			$appId = $params[0];
 			$password = $params[1];
 
+			if(!$this->user)
+				$this->user=User::where('username', $appId)->first();
 
 			if($this->user){
 
 				if(\Hash::check($password, $this->user->password)){
+
+					\Log::info("Checked hash");
+
+					// Update the last active platform
+					$this->user->lastActivePlatform = $this->service;
+					$this->user->save();
 
 					// Check if the service is not already registered
 					$key = $this->user->keys()->where('name', $this->service)->first();
 
 					if(!$key) {
 						$this->user->keys()->save(new Key([	'name' => $this->service,
-																	'key' => $this->sericeId]));
+																	'key' => $this->serviceId]));
 					} else {
 						$key->key = $this->serviceId;
 						$key->save();
@@ -59,6 +67,8 @@
 
 				// Create a new user
 
+				\Log::info("On new user");
+
 				$state = State::where('name', 'main')->first();
 
 				$this->user =  User::create([	'username' => $appId,
@@ -70,15 +80,10 @@
 				$this->user->keys()->save(new Key([	'name' => $this->service,
 															'key' => $this->serviceId]));
 
+				$message = new Message(['message' => trans('messages.new_user_registered')]);
+				$this->user->messages()->save($message);
+
 			}
-
-			// Update the last active platform
-			$this->user->lastActivePlatform = $this->service;
-			$this->user->save();
-
-
-			$message = new Message(['message' => trans('messages.new_user_registered')]);
-			$this->user->messages()->save($message);
 		}
 
 		// public function askHelp(){
