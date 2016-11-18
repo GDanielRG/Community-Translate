@@ -8,15 +8,15 @@
 	use App\Key;
 
 	/**
-	* 
+	*
 	*/
 	class GlobalFunctions
 	{
-		
+
 		/**
 		*	#register {id} {password}
 		*/
-		
+
 
 		public function register()
 		{
@@ -46,7 +46,7 @@
 					$key = $this->user->keys()->where('name', $this->service)->first();
 
 					if(!$key) {
-						$this->user->keys()->save(new Key([	'name' => $this->service, 
+						$this->user->keys()->save(new Key([	'name' => $this->service,
 																	'key' => $this->serviceId]));
 					} else {
 						$key->key = $this->serviceId;
@@ -73,21 +73,19 @@
 
 				$state = State::where('name', 'main')->first();
 
-				$this->user =  User::create([	'username' => $appId, 
-												'password' => bcrypt($password), 
-												'lastActivePlatform' => $this->service, 
+				$this->user =  User::create([	'username' => $appId,
+												'password' => bcrypt($password),
+												'lastActivePlatform' => $this->service,
 												'state_id' => $state->id]);
 
 				// Register the new user key
-				$this->user->keys()->save(new Key([	'name' => $this->service, 
+				$this->user->keys()->save(new Key([	'name' => $this->service,
 															'key' => $this->serviceId]));
 
 				$message = new Message(['message' => trans('messages.new_user_registered')]);
 				$this->user->messages()->save($message);
 
 			}
-
-
 		}
 
 
@@ -116,4 +114,25 @@
 		// 	}
 
 		// }
+
+		public function addLanguage()
+		{
+			if($this->user)
+			{
+				$this->user->lastActivePlatform = $this->service;
+				$this->user->save();
+
+				$language = Languege::where('name', $this->payload)->orWhere('code', $this->payload);
+				if($language)
+				{
+					$this->user->languages()->save($language);
+					$message = new Message(['message' => trans('messages.new_language_added', ['name'=>$language->name])]);
+					$this->user->messages()->save($message);
+				}
+				else{
+					$message = new Message(['message' => trans('messages.language_not_found', ['name'=>$this->payload])]);
+					$this->user->messages()->save($message);
+				}
+			}
+		}
 	}
