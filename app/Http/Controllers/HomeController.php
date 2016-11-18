@@ -104,6 +104,25 @@ class HomeController extends Controller
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
             return $mainFunctions->unmute();
         }
+
+        if(substr($text, 0, strlen('#request')) === "#request" && $text['8'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 9));
+            return $mainFunctions->createRequest();
+        }
+
+        if(substr($text, 0, strlen('#reply')) === "#reply" && $text['6'] = " ")
+        {
+            $receivedFunctions = new ReceivedPetitionFunctions($service, $id, substr($text, 7));
+            return $receivedFunctions->sendAnswer();
+        }
+
+        if(substr($text, 0, strlen('#getBest')) === "#getBest" && $text['8'] = " ")
+        {
+            $requestedFunctions = new RequestedTranslationsFunctions($service, $id, substr($text, 9));
+            return $requestedFunctions->getBestAnswer();
+        }
+
     }
 
     public function activateJobs()

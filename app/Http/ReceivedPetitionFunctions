@@ -24,13 +24,14 @@
 			$this->service = $service;
 			$this->serviceId = $userId;
 		}
+
 		
 		public function sendAnswer()
 		{
 
-			$text = $this->payload;
+			if($this->user && $this->user->canAnswer()){
 
-			if($this->user){
+				$text = $this->payload;
 
 				$petition = $this->user->translationPetitions()->where('closed', false)->first();
 				$petition->translationAnswers()->save(new TranslationAnswer(["translation" => $text]));
