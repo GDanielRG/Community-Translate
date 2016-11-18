@@ -93,7 +93,9 @@
 					$targetUserId->messages()->save($message);
 				}
 
-				$this->close();
+				$state = State::where('name', 'main')->first();
+				$this->user->state_id = $state->id;
+				$this->user->save();
 
 			}
 		}
