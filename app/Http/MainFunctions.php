@@ -81,7 +81,7 @@
 		// Go to state 2
 		public function goRequesTranslation()
 		{
-			//MISSING QUERY
+			
 			if($this->user){
 				$state = State::where('name', 'requestedTranslation')->first();
 				$this->user->state_id = $state->id;
