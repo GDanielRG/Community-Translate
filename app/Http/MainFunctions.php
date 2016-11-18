@@ -61,6 +61,7 @@
 
 		public function recievePetition($idPetition)
 		{
+			\Log::info('etro');
 			$this->goPetitionTranslation();
 			$translationPetition = TranslationPetition::find($idPetition);
 			$language = $translationPetition->language->name;

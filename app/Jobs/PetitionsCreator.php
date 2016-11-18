@@ -60,9 +60,9 @@ class PetitionsCreator implements ShouldQueue
                 }
                 $temp = LanguageUser::where('language_id', $request->language_id)->get()->pluck('user_id');
 
-                \Log::info($temp);
+                // \Log::info($temp);
                 $potentialUsers = User::whereIn('id', $temp)->get();
-                \Log::info($potentialUsers);
+                // \Log::info($potentialUsers);
 
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
@@ -76,7 +76,8 @@ class PetitionsCreator implements ShouldQueue
                                                                             'translation_request_id' => $request->id,
                                                                             'language_id' => $language->id,
                                                                         ]);
-                                $mainFunctions = new MainFunctions(null, null, null);
+
+                                $mainFunctions = new MainFunctions($petition->user->keys()->first()->name,$petition->user->keys()->first()->key, null);
                                 $mainFunctions->receivedPetition($petition->id);
 
                         }
