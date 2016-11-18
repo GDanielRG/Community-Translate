@@ -218,6 +218,16 @@
 			}
 		}
 
+
+		public function updateLastPlatform()
+		{
+			if($this->user){
+				// Update the last active platform
+				$this->user->lastActivePlatform = $this->service;
+				$this->user->save();
+			}
+		}
+
 		public function close()
 		{
 			// Check that the users exits

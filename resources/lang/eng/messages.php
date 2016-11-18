@@ -2,7 +2,7 @@
 
 return [
     'wrong_password' => 'Incorrect password',
-    'reply_label' => 'Reply in'
+    'reply_label' => 'Someone replied in :language : :translation',
     'new_user_registered' => 'New user registered',
     'new_language_added' => 'Language added: :name',
     'language_not_found' => 'Language not found: :name',

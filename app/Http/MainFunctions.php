@@ -4,6 +4,8 @@
 
 	use App\Key;
 	use App\State;
+	use App\Language;
+	use App\TranslationRequest;
 
 	/**
 	* 
@@ -24,6 +26,36 @@
 			$this->service = $service;
 			$this->serviceId = $userId;
 		}
+
+		public function createRequest()
+		{
+			if($this->user){
+
+				$lang = explode(" ", $this->payload);
+				$text = substr($this->payload, strlen($lang[0]) + 1);
+
+
+				if(strlen($lang[0]) == 3){
+					$language = Language::where('code', $lang[0])->first();
+				} else {
+					$language = Language::where('name', $lang[0])->first();
+				}
+
+				TranslationRequest::create(	[	'user_id' => $this->user->id,
+												'language_id' => $language->id,
+												'text' => $text,
+												'closed' => false,
+												'last_petition' => \Carbon\Carbon::now()
+
+					]);
+
+				$this->updateLastPlatform();
+				$this->goRequesTranslation();
+
+			}
+		}
+
+		
 
 		// Go to state 4
 		public function goRate()

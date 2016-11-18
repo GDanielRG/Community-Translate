@@ -6,6 +6,10 @@ use Illuminate\Http\Request;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
 use App\Http\RequestedTranslationsFunctions;
+use App\Message;
+use App\User;
+use App\Key;
+use App\TranslationPetition;
 
 class HomeController extends Controller
 {
@@ -25,9 +29,10 @@ class HomeController extends Controller
      */
     public function index()
     {
+
         // Test register
-        // $mainFunctions = new MainFunctions("facebook", "44", "alfhh hinojosa");
-        // $mainFunctions->register();
+        //$mainFunctions = new MainFunctions("facebook", "54", "daniel kako");
+        //$mainFunctions->register();
         // $mainFunctions = new MainFunctions("slack", "45", "alfhh hinojosa");
         // $mainFunctions->register();
         // $mainFunctions = new MainFunctions("facebook", "44", "Spanish");
@@ -44,12 +49,38 @@ class HomeController extends Controller
 
         // echo("<p style='white-space: pre-wrap;'>Comandos disponibles:\n\n#mute\nCambia tu estado actual a silenciado\n\n#unmute\nCambia tu estado actual a no silenciado\n\n#addLanguage {name|code}\nAgrega un nuevo lenguage a tu lista de lenguages conocidos\n\t-name: Nombre del lenguage\n\t-code: ISO: 693-2 codigo del lenguage\n\n#register {username} {password}\nRegistra una nueva aplicacion a tu cuenta\n\t-username: Tu ID\n\t-password: Tu contraseña\n\n#changeLanguage {name|code}\nCambia el lenguaje de la aplicacion\n\t-name: Nombre del lenguage\n\t-code: ISO: 693-2 codigo del lenguage\n</p>");
 
-        $mainFunctions = new MainFunctions("slack", "45", "");
-        $mainFunctions->goRequesTranslation();
+        // $mainFunctions = new MainFunctions("facebook", "44", "");
+        // $mainFunctions->askHelp();
 
-        $mainFunctions = new RequestedTranslationsFunctions("facebook", "44", "");
-        $mainFunctions->getBestAnswer();
+        //$mainFunctions = new MainFunctions("slack", "45", "Japanese this is the jap file");
+        //$mainFunctions->createRequest();
+
+        TranslationPetition::create([
+                'user_id' => 2,
+                'language_id' => 51,
+                'translation_request_id' => 3
+            ]);
 
         return 'done';
+    }
+
+    public function receiveImage(Request $request)
+    {
+        \Log::info($request->all());
+    }
+
+    public function receiveText(Request $request)
+    {
+        $text =$request->get('message')["data"]["text"];
+        $id = $request->get('message')["data"]["id"];
+        $service = $request->get('message')["service"];
+        \Log::info($text);
+        \Log::info($id);
+        \Log::info($service);
+        if(substr($text, 0, strlen('#register')) === "#register" && $text['9'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
+            $mainFunctions->register();
+        }
     }
 }
