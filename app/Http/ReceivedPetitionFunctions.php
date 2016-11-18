@@ -28,7 +28,7 @@
 		}
 
 
-		public function sendAnswer()
+		public function sendAnswerr()
 		{
 			\Log::info('entro');
 			// if($this->user && $this->user->canAnswer()){
