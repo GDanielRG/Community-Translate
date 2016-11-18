@@ -34,4 +34,9 @@ class TranslationRequest extends Model
     {
         return $this->hasMany('App\TranslationPetition');
     }
+
+    public function messages()
+	{
+		return $this->morphMany('App\Message', 'messageable');
+	}
 }
