@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\GlobalFunctions;
 use App\Http\MainFunctions;
 use App\Http\RequestedTranslationsFunctions;
+use App\Http\RatingFunctions;
 use App\Message;
 use App\User;
 use App\Key;
@@ -117,10 +118,22 @@ class HomeController extends Controller
             return $receivedFunctions->sendAnswer();
         }
 
-        if(substr($text, 0, strlen('#getBest')) === "#getBest" && $text['8'] = " ")
+        if(substr($text, 0, strlen('#getbest')) === "#getbest" && $text['8'] = " ")
         {
             $requestedFunctions = new RequestedTranslationsFunctions($service, $id, substr($text, 9));
             return $requestedFunctions->getBestAnswer();
+        }
+
+        if(substr($text, 0, strlen('#skip')) === "#skip" && $text['5'] = " ")
+        {
+            $ratingFunctions = new RatingFunctions($service, $id, substr($text, 6));
+            return $ratingFunctions->skip();
+        }
+
+        if(substr($text, 0, strlen('#rate')) === "#rate" && $text['5'] = " ")
+        {
+            $ratingFunctions = new RatingFunctions($service, $id, substr($text, 6));
+            return $ratingFunctions->rateAnswer();
         }
 
     }
