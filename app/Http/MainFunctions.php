@@ -66,7 +66,7 @@
 			$translationPetition = TranslationPetition::find($idPetition);
 			$language = $translationPetition->language->name;
 
-			$message = new Message(['message' => trans('messages.request_translate_petition', ['lang'=>$language->name, 'text'=> $translationPetition->translationRequest->text])]);
+			$message = new Message(['message' => trans('messages.request_translate_petition', ['lang'=>$language, 'text'=> $translationPetition->translationRequest->text])]);
 			$translationPetition->user->messages()->save($message);
 
 			$translationPetition->sent = true;
