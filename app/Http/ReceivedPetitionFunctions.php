@@ -30,27 +30,26 @@
 
 		public function sendAnswerr()
 		{
-			\Log::info('entro');
-			// if($this->user && $this->user->canAnswer()){
-			//
-			// 	$text = $this->payload;
-			//
-			// 	$petition = $this->user->translationPetitions()->where('closed', false)->first();
-			// 	$petition->translationAnswers()->save(new TranslationAnswer(["translation" => $text]));
-			// 	$petition->closed = true;
-			// 	$petition->save();
-			//
-			// 	if($petition->translationRequest->user->canReceiveAnswers())
-			// 	{
-			// 		$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
-			// 		$targetUserId = $petition->translationRequest()->user();
-			//
-			// 		$targetUserId->messages()->save($message);
-			// 	}
-			//
-			// 	$this->close();
-			//
-			// }
+			if($this->user && $this->user->canAnswer()){
+
+				$text = $this->payload;
+
+				$petition = $this->user->translationPetitions()->where('closed', false)->first();
+				$petition->translationAnswers()->save(new TranslationAnswer(["translation" => $text]));
+				$petition->closed = true;
+				$petition->save();
+
+				if($petition->translationRequest->user->canReceiveAnswers())
+				{
+					$message = new Message(['message' => trans('reply_label', ["language" => $petition->language->name, "translation" => $text])]);
+					$targetUserId = $petition->translationRequest()->user();
+
+					$targetUserId->messages()->save($message);
+				}
+
+				$this->close();
+
+			}
 		}
 
 	}
