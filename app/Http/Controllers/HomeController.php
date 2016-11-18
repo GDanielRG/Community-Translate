@@ -89,6 +89,26 @@ class HomeController extends Controller
             $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
             $mainFunctions->register();
         }
+        if(substr($text, 0, strlen('#iknow')) === "#iknow" && $text['6'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 7));
+            $mainFunctions->addLanguage();
+        }
+        if(substr($text, 0, strlen('#language')) === "#language" && $text['9'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
+            $mainFunctions->addLanguage();
+        }
+        if(substr($text, 0, strlen('#mute')) === "#mute" && $text['9'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
+            $mainFunctions->mute();
+        }
+        if(substr($text, 0, strlen('#unmute')) === "#unmute" && $text['9'] = " ")
+        {
+            $mainFunctions = new MainFunctions($service, $id, substr($text, 10));
+            $mainFunctions->unmute();
+        }
     }
 
     public function activateJobs()
