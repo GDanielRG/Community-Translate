@@ -6,6 +6,7 @@
 	use App\State;
 	use App\Language;
 	use App\TranslationRequest;
+	use App\Message;
 
 	/**
 	* 
@@ -55,6 +56,16 @@
 			}
 		}
 
+		public function recievePetition($idPetition) 
+		{
+			$translationPetition = TranslationPetition::find($idPetition);
+			$language = $translationPetition->language->name;
+
+			$message = new Message(['message' => trans('Can you translate', ['lang'=>$language->name, 'text'=> $translationPetition->translationRequest->text])]);
+			$translationPetition->user->messages()->save($message);
+
+			$this->goPetitionTranslation();
+		}
 		
 
 		// Go to state 4
