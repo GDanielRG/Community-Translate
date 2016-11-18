@@ -68,8 +68,6 @@ class PetitionsCreator implements ShouldQueue
                     foreach ($potentialUser->languages as $language) {
                         if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers))
                         {
-                            if($potentialUser->canReceiveTranslation())
-                            {
                                 $state = State::where('name', 'receivedPetition')->first();
                                 $potentialUser->state_id = $tate->id;
                                 $potentialUser->save();
@@ -80,7 +78,6 @@ class PetitionsCreator implements ShouldQueue
                                                                         ]);
                                 $mainFunctions = new MainFunctions(null, null, null);
                                 $mainFunctions->receivedPetition($petition->id);
-                            }
 
                         }
                     }
