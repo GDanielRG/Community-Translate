@@ -46,5 +46,12 @@
 		// 	}
 		// }
 
-		
+		public function skip()
+		{
+			$rate = $this->user->rates()->where('value', null)->first();
+			if ($rate) {
+				$rate->value = 0;
+				$rate->save();
+			}
+		}
 	}
