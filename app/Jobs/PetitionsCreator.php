@@ -7,6 +7,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\User;
+use App\LanguageUser;
 use App\State;
 use App\TranslationPetition;
 use App\TranslationRequest;
@@ -57,8 +58,11 @@ class PetitionsCreator implements ShouldQueue
                 foreach ($languagesNeeded2 as $lan) {
                     $languagesNeeded[]=$lan->id;
                 }
+                $temp = LanguageUser::where('language_id', $request->language_id)->get()->pluck('user_id');
+
+                \Log::info($temp);
                 $potentialUsers = $request->language->users()->get();
-                \Log::info($potentialUsers);
+
                 foreach ($potentialUsers as $potentialUser) {
                     foreach ($potentialUser->languages as $language) {
                         if(in_array($language->id, $languagesNeeded) && !in_array($potentialUser->id, $petitionedUsers))
