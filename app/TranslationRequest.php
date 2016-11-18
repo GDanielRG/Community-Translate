@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class TranslationRequest extends Model
 {
-    protected $fillable = ['user_id', 'target_language_id', 'source_language_id', 'text', 'closed', 'last_petition'];
+    protected $fillable = ['user_id', 'language_id', 'text', 'closed', 'last_petition'];
 
     protected $dates = ['last_petition'];
 
@@ -15,14 +15,9 @@ class TranslationRequest extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function targetLanguage()
+    public function language()
     {
-        return $this->belongsTo('App\Language', 'target_language_id');
-    }
-
-    public function sourceLanguage()
-    {
-        return $this->belongsTo('App\Language', 'source_language_id');
+        return $this->belongsTo('App\Language');
     }
 
     public function translationAnswers()
@@ -33,6 +28,11 @@ class TranslationRequest extends Model
     public function translationPetitions()
     {
         return $this->hasMany('App\TranslationPetition');
+    }
+
+    public function users()
+    {
+        return $this->hasManyThrough('App\User', 'App\TranslationPetition');
     }
 
     public function messages()

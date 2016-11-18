@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class TranslationAnswer extends Model
 {
 
+	protected $fillable= ['translation', 'translation_petition_id'];
 
 	public function translationPetition()
 	{
@@ -22,6 +23,5 @@ class TranslationAnswer extends Model
 	{
 		return $this->morphMany('App\Message', 'messageable');
 	}
-
 
 }

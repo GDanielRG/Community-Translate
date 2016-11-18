@@ -10,14 +10,15 @@ class Language extends Model
 
 	protected $fillable = ['name', 'code', 'system'];
 
-    public function targetTranslationRequest()
+
+    public function translationRequests()
     {
-    	return $this->hasMany('App\TranslationRequest', 'target_language_id', 'id');
+    	return $this->hasMany('App\TranslationRequest');
     }
 
-    public function sourceTranslationRequest()
+	public function translationPetitions()
     {
-    	return $this->hasMany('App\TranslationRequest', 'source_language_id', 'id');
+    	return $this->hasMany('App\TranslationPetition');
     }
 
 	public function users()
