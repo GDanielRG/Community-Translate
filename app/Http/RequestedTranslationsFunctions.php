@@ -3,6 +3,7 @@
 	namespace App\Http;
 
 	use App\Key;
+	use App\Message;
 	use App\TranslationRequest;
 
 	/**
