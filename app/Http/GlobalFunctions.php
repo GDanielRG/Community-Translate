@@ -250,12 +250,12 @@
 
 					switch ($stateName) {
 						case 'requestedTranslation':
-							$request = $this->user->translationRequests()->where('close', false)->first();
+							$request = $this->user->translationRequests()->where('closed', false)->first();
 							$request->closed = true;
 							$request->save();
 							break;
 						case 'receivedPetition':
-							$petition = $this->user->translationPetitions()->where('close', false)->first();
+							$petition = $this->user->translationPetitions()->where('closed', false)->first();
 							$petition->closed = true;
 							$petition->save();
 							break;
